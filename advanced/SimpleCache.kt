@@ -16,7 +16,7 @@ class SimpleCache<K : Any, V : Any>(
   private val map: ConcurrentMap<K, CacheEntry<V>> = ConcurrentHashMap(),
 ) {
   data class CacheEntry<V : Any>(val value: V, val expiresAtMillis: Long?) {
-    fun isExpired(nowMillis: Long): Boolean = expiresAtMillis?.let(nowMillis::>=) ?: false
+    fun isExpired(nowMillis: Long): Boolean = expiresAtMillis?.let { nowMillis >= it } ?: false
   }
 
   /** Stores [value] for [key] with an optional [ttl]. */
