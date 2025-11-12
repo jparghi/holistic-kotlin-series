@@ -1,46 +1,30 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
-buildscript {
-  repositories {
-    mavenCentral()
-  }
-  dependencies {
-    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.20")
-  }
+plugins {
+  kotlin("jvm") version "2.0.0"
 }
-
-apply(plugin = "org.jetbrains.kotlin.jvm")
 
 repositories {
   mavenCentral()
 }
 
-dependencies {
-  implementation("org.jetbrains.kotlin:kotlin-stdlib:2.0.20")
-  testImplementation("org.jetbrains.kotlin:kotlin-test:2.0.20")
-  testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:2.0.20")
-}
-
-configure<KotlinJvmProjectExtension> {
+kotlin {
   jvmToolchain(17)
+
+  sourceSets {
+    val main by getting {
+      kotlin.srcDir("advanced")
+      kotlin.exclude("**/*Test.kt")
+    }
+    val test by getting {
+      kotlin.srcDir("advanced")
+      kotlin.include("**/*Test.kt")
+    }
+  }
 }
 
-val mainSources = fileTree("advanced") {
-  include("**/*.kt")
-  exclude("**/*Test.kt")
-}
-
-val testSources = fileTree("advanced") {
-  include("**/*Test.kt")
-}
-
-tasks.named<KotlinCompile>("compileKotlin") {
-  setSource(mainSources)
-}
-
-tasks.named<KotlinCompile>("compileTestKotlin") {
-  setSource(testSources)
+dependencies {
+  implementation(kotlin("stdlib"))
+  testImplementation(kotlin("test"))
+  testImplementation(kotlin("test-junit5"))
 }
 
 tasks.test {

@@ -96,22 +96,32 @@ holistic-kotlin-series/
 
 ### 5.2 Running the project from the command line
 1. Ensure you are in the repository root (`holistic-kotlin-series/`).
-2. If you have a local Gradle installation, run:
+2. The first time you work with the codebase, initialize the Gradle wrapper so the correct Gradle version is shared:
 
    ```bash
-   gradle test
+   gradle wrapper
    ```
 
-   This compiles the code and executes every test defined in `advanced/`.
-3. Prefer to use the Gradle wrapper? Generate it once by running `gradle wrapper`, then execute:
+   The wrapper lives under `./gradlew` and can be checked into version control.
+3. Build the project and run the full test suite:
 
    ```bash
    ./gradlew test
    ```
 
-   The wrapper pins the Gradle version so collaborators can reproduce your results without installing Gradle globally.
+   (If you prefer a globally installed Gradle, swap `./gradlew` with `gradle`.)
 
-### 5.3 Running from IntelliJ IDEA
+### 5.3 Running only `advanced/HierarchyTest.kt`
+1. Execute the following command to run just the hierarchy tests from the command line:
+
+   ```bash
+   ./gradlew test --tests "advanced.HierarchyTest"
+   ```
+
+   Gradle will compile the sources under `advanced/` and execute only the matching test class.
+2. Alternatively, use your IDE's test runner (e.g., IntelliJ IDEA) to right-click `advanced/HierarchyTest.kt` and choose **Run 'HierarchyTest'**.
+
+### 5.4 Running from IntelliJ IDEA
 1. Open the project directory in IntelliJ IDEA (Community or Ultimate).
 2. When prompted, trust the Gradle build; IntelliJ will download the Kotlin plugin and dependencies automatically.
 3. Use the Gradle tool window to run the **`test`** task, or right-click any file such as `advanced/HierarchyTest.kt` and choose **Run 'HierarchyTest'**.

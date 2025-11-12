@@ -52,8 +52,11 @@ class HierarchyTest {
 
     val filtered = hierarchy.filter { nodeId -> nodeId != 5 && nodeId != 2 }
 
-    val expectedIds = intArrayOf(1, 6, 7)
-    val expectedDepths = intArrayOf(0, 0, 1)
+    // Roots `4` and `6` should remain unaffected by filtering decisions made in
+    // the other roots. Node `4` itself satisfies the predicate even though its
+    // child `5` is removed, so it should still appear in the filtered forest.
+    val expectedIds = intArrayOf(1, 4, 6, 7)
+    val expectedDepths = intArrayOf(0, 0, 0, 1)
 
     assertContentEquals(expectedIds, IntArray(filtered.size) { filtered.nodeId(it) })
     assertContentEquals(expectedDepths, IntArray(filtered.size) { filtered.depth(it) })
