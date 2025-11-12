@@ -88,20 +88,33 @@ holistic-kotlin-series/
 ## 5. Build and Run
 
 ### 5.1 Prerequisites
-- **Kotlin:** 1.9 or higher  
-- **Java:** 17 or higher  
-- **Gradle:** 8.x  
-- **JUnit:** 5.x  
+- **Java Development Kit (JDK):** 17 or higher (required for compiling and running Kotlin/JVM code).
+- **Gradle:** 8.x (install locally or use the Gradle wrapper – see below).
+- **Kotlin:** 1.9 or higher (automatically provisioned when running Gradle tasks).
 
-### 5.2 Commands
-Build and run all tests using Gradle:
+> **Tip:** If you are using IntelliJ IDEA, simply opening the project will download the matching Kotlin and Gradle toolchains for you.
 
-```bash
-./gradlew build
-./gradlew test
-````
+### 5.2 Running the project from the command line
+1. Ensure you are in the repository root (`holistic-kotlin-series/`).
+2. If you have a local Gradle installation, run:
 
-Or open directly in **IntelliJ IDEA** and run test configurations.
+   ```bash
+   gradle test
+   ```
+
+   This compiles the code and executes every test defined in `advanced/`.
+3. Prefer to use the Gradle wrapper? Generate it once by running `gradle wrapper`, then execute:
+
+   ```bash
+   ./gradlew test
+   ```
+
+   The wrapper pins the Gradle version so collaborators can reproduce your results without installing Gradle globally.
+
+### 5.3 Running from IntelliJ IDEA
+1. Open the project directory in IntelliJ IDEA (Community or Ultimate).
+2. When prompted, trust the Gradle build; IntelliJ will download the Kotlin plugin and dependencies automatically.
+3. Use the Gradle tool window to run the **`test`** task, or right-click any file such as `advanced/HierarchyTest.kt` and choose **Run 'HierarchyTest'**.
 
 ---
 
